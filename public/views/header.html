@@ -1,0 +1,38 @@
+<header ng-controller="NavController as nav">
+  <div class="row">
+    <div class="col-xs-5">
+      <a href ui-sref="main">
+
+<!-- Switch to a different logo depending on screen size -->
+        <picture>
+          <source media="(max-width: 499px)" srcset="../resources/logo_sm.png">
+          <source srcset="../resources/app_logo.png">
+          <img id="logo" src="../resources/app_logo.png" alt="logo">
+        </picture>
+      </a>
+    </div>
+
+<!-- The main nav pills on a wide screen -->
+    <div class="col-xs-7">
+      <ul class="nav nav-pills orange main-nav" role="navigation">
+        <li ng-class="{active: stateis('main')}"><a href ui-sref="main">Home</a></li>
+        <li ng-class="{active: stateis('updateme')}"><a href ui-sref="updateme">Your Record</a></li>
+        <li ng-class="{active: stateis('about')}"><a href ui-sref="about">About Us</a></li>
+        <li ng-click="logOut()"><a href="">Log out</a></li>
+      </ul>
+
+<!-- The dropdown nav that is toggled by the hamburger button on a small screen -->
+      <div class="dropdown">
+        <span class="glyphicon glyphicon-menu-hamburger" id="dropdownMenu1" data-toggle="dropdown"></span>
+        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+          <li ng-class="{active: stateis('main')}"><a href ui-sref="main">Home</a></li>
+          <li ng-class="{active: stateis('updateme')}"><a href ui-sref="updateme">Your Record</a></li>
+          <li ng-class="{active: stateis('about')}"><a href ui-sref="about">About Us</a></li>
+          <li role="separator" class="divider"></li>
+          <li ng-click="logOut()"><a href ="">Log out</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</header>

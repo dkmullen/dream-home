@@ -1,0 +1,31 @@
+{
+  "name": "dirapp",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "angular": "^1.6.4",
+    "angular-resource": "^1.6.4",
+    "angular-ui-router": "^0.4.2",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "~1.17.1",
+    "bootstrap": "^3.3.7",
+    "cloudinary": "^1.9.1",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "jquery-slim": "^3.0.0",
+    "jsonwebtoken": "^7.4.0",
+    "method-override": "^2.3.8",
+    "mongoose": "^4.9.5",
+    "morgan": "~1.8.1",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.0.0",
+    "serve-favicon": "~2.4.2"
+  },
+  "engines": {
+    "node": "8.9.3 "
+  }
+}

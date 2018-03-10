@@ -1,0 +1,34 @@
+<!-- This is the main view, a list of all members in the db ------------------>
+<div id="home-container" ng-controller="MemberListController as directory">
+
+<!-- Begin searchbox row ---------------------------------------------------->
+  <div class="row">
+    <div id="searchbox">
+      <input type="text"
+              class="form-control"
+              ng-model="searchText"
+              placeholder="Search for a name, city, street, etc."
+              autofocus="true" />
+    </div>
+  </div>
+
+<!-- Begin row containing the grid of pictures ------------------------------>
+  <div class="row">
+    <!-- Iterate through all members, list them alphabetically by last name
+          and filter by any string typed into searchbox -->
+    <div id="grid-pix"
+              ng-repeat="member in directory.members.data |
+              orderBy: 'lastName' |
+              filter:searchText">
+      <div>
+        <a ui-sref="detail({id: member._id})">
+          <img ng-src={{member.image.thumb}}
+                alt={{member.firstName}}
+                height="225" width="300" />
+          <h3>{{member.firstName}} {{member.lastName}}</h3>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>

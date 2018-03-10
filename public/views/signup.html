@@ -1,0 +1,109 @@
+<div ng-controller="SignUpController as signup" id="login-container">
+  <img class="img-responsive login-logo" src=../resources/logo_lg.png />
+
+  <form class="form-horizontal login-form"
+          role="form"
+          name="signUpForm"
+          ng-submit="signUp()"
+          no-validate>
+
+<!-- Start name field ------------------------------------------------------>
+
+    <div class="form-group"
+          ng-class="{ 'has-success' : !signUpForm.name.$error.required }">
+      <label for="name" class="col-sm-2 control-label">Name</label>
+      <div class="col-sm-10">
+        <input type="text"
+                class="form-control"
+                id="name"
+                name="name"
+                ng-model="signUpCreds.name"
+                autofocus="true"
+                placeholder="Your Name"
+                required />
+      </div>
+    </div>
+
+<!-- End name field -------------------------------------------------------->
+
+<!-- Start email field ----------------------------------------------------->
+
+    <div class="form-group"
+          ng-class="{ 'has-success' : !signUpForm.email.$invalid,
+            'has-error' : !signUpForm.email.$pristine
+            && signUpForm.email.$invalid }">
+      <label for="email" class="col-sm-2 control-label">Email</label>
+      <div class="col-sm-10">
+        <input type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                ng-model="signUpCreds.email"
+                placeholder="Email"
+                required />
+      </div>
+    </div>
+
+<!-- Start password fields ------------------------------------------------->
+
+    <div class="form-group"
+          ng-class="{ 'has-success' : !signUpForm.password.$invalid,
+                        'has-error' : !signUpForm.password.$pristine
+                        && signUpForm.password.$invalid}">
+      <label for="password" class="col-sm-2
+        control-label">Password</label>
+      <div class="col-sm-10">
+        <input type="password"
+        class="form-control"
+        id="password"
+        name="password"
+        ng-model="signUpCreds.password"
+        placeholder="Password - Five characters or more"
+        ng-pattern="pwregex"
+        required />
+      </div>
+    </div>
+
+    <div class="form-group"
+          ng-class="{ 'has-success' : !signUpForm.password2.$invalid,
+                        'has-error' : !signUpForm.password2.$pristine
+                        && signUpForm.password2.$invalid}">
+      <label for="password2" class="col-sm-2
+        control-label">Verify</label>
+      <div class="col-sm-10">
+        <input type="password"
+        class="form-control"
+        id="password2"
+        name="password2"
+        ng-model="signUpCreds.password2"
+        placeholder="Repeat Password"
+        ng-pattern="signUpCreds.password"
+        required />
+      </div>
+    </div>
+
+<!-- End password fields --------------------------------------------------->
+
+<!-- Start button area ----------------------------------------------------->
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <input type="submit"
+                class="btn orange-button"
+                value="Submit"
+                ng-disabled="signUpForm.$invalid">
+      </div>
+    </div>
+
+<!-- End button area ------------------------------------------------------->
+
+  </form>
+
+  <div class="col-sm-offset-2 col-sm-10">
+    If you already have an account <a href ui-sref="login">sign in here.</a>
+    <p class="error-message"
+        ng-class="{'vis-hidden': !errorMessage}">{{errorMessage}}
+    </p>
+  </div>
+
+</div>

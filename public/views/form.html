@@ -1,0 +1,292 @@
+<div ng-controller="PostNewRecordController as post">
+  <div class="row">
+    <div class="col-xs-12 col-md-8 first-column">
+      <img ng-src="{{myPicture}}" alt="Your picture"
+        class="img-responsive placeholder-image"
+        height="413" width="550"
+        ng-model=myPicture
+        ng-click="cloudinaryWidget()" />
+        <p id="changeimage">Click your image to change it.</p>
+    </div>
+
+    <div class="col-xs-12 col-md-4 second-column">
+      <form class="form-horizontal info-form"
+            role="form"
+            name="newRecordForm"
+            ng-submit="saveNewRecord()"
+            novalidate>
+        <h4>Looks like you haven't done this before</h4>
+
+<!-- Start First/Last Name row -------------------------------------------->
+
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group"
+                  ng-class="{ 'has-success' : !newRecordForm.firstName.$error.required }">
+              <input type="text"
+                      class="form-control"
+                      id="firstName"
+                      name="firstName"
+                      ng-model="newRecord.firstName"
+                      autofocus="true"
+                      placeholder=" First Name"
+                      required />
+            </div>
+          </div>
+
+          <div class="col-xs-6">
+            <div class="form-group"
+                  ng-class="{ 'has-success' : !newRecordForm.lastName.$error.required }">
+              <input type="text"
+                      class="form-control"
+                      id="lastName"
+                      name="lastName"
+                      ng-model="newRecord.lastName"
+                      placeholder=" Last Name"
+                      required />
+            </div>
+          </div>
+        </div>
+
+<!-- End First/Last Name row -------------------------------------------->
+
+<!-- Start DOB/Email row ------------------------------------------------>
+
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group"
+                  ng-class="{ 'has-success' : !newRecordForm.dateOfBirth.$invalid,
+                    'has-error': !newRecordForm.dateOfBirth.$pristine
+                    && newRecordForm.dateOfBirth.$invalid }">
+              <label class="control-label"
+                for="dateOfBirth">Date of Birth:
+              </label><br />
+                <input type="date"
+                        class="form-control"
+                        id="dateOfBirth"
+                        name="dateOfBirth"
+                        ng-model="newRecord.dateOfBirth"
+                        min="1917-01-01"
+                        placeholder=" yyyy-mm-dd"
+                        value="1987-10-09"
+                        required />
+            </div>
+          </div>
+
+          <div class="col-xs-6">
+            <div class="form-group"
+                  ng-class="{ 'has-success' : !newRecordForm.email.$invalid,
+                    'has-error' : !newRecordForm.email.$pristine
+                    && newRecordForm.email.$invalid }">
+              <label class="control-label"
+                for="email">Email:
+              </label><br />
+              <input type="email"
+                      class="form-control"
+                      id="email"
+                      name="email"
+                      ng-model="newRecord.email"
+                      placeholder=" you@example.com"
+                      required />
+            </div>
+          </div>
+        </div>
+
+<!-- End DOB/Email row ------------------------------------------------>
+
+<!-- Start Phone/Text row --------------------------------------------->
+
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group"
+                  ng-class="{ 'has-success' : !newRecordForm.phoneNumber.$invalid,
+                    'has-error' : !newRecordForm.phoneNumber.$pristine
+                    && newRecordForm.phoneNumber.$invalid }">
+              <label class="control-label"
+                for="phoneNumber">Phone (inc. area code):
+              </label><br />
+              <input type="tel"
+                      class="form-control"
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      ng-model="newRecord.phone.phoneNumber"
+                      ng-pattern="phoneregex"
+                      placeholder=" xxx-xxx-xxxx"
+                      required />
+            </div>
+          </div>
+
+          <div class="col-xs-6">
+            <div class="form-group"
+                  ng-class="{ 'has-success' : !newRecordForm.textCapable.$error.required }">
+              <label class="control-label"
+                for="textCapable">Texts at this #?
+              </label><br />
+              <label class="radio-inline">
+                <input type="radio"
+                        id="text-yes"
+                        name="textCapable"
+                        ng-model="newRecord.phone.textCapable"
+                        value="true"
+                        required /> Y
+              </label>
+              <label class="radio-inline">
+                <input type="radio"
+                        id="text-no"
+                        name="textCapable"
+                        ng-model="newRecord.phone.textCapable"
+                        value="false"
+                        required /> N
+              </label>
+            </div>
+          </div>
+        </div>
+
+<!-- End Phone/Text row --------------------------------------------->
+
+<!-- Start Address1 row --------------------------------------------->
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group"
+                  ng-class="{ 'has-success' : !newRecordForm.streetOne.$error.required }">
+              <input type="text"
+                      class="form-control"
+                      id="streetOne"
+                      name="streetOne"
+                      ng-model="newRecord.address.streetOne"
+                      placeholder=" Address Line 1"
+                      required />
+            </div>
+          </div>
+        </div>
+
+<!-- Start Address2 row --------------------------------------------->
+
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group">
+              <input type="text"
+                      class="form-control"
+                      name="streetTwo"
+                      ng-model="newRecord.address.streetTwo"
+                      placeholder=" Address Line 2 (optional)"/>
+            </div>
+          </div>
+        </div>
+
+<!-- Start City?State?Zip row --------------------------------------------->
+
+        <div class="row">
+          <div class="col-xs-5">
+            <div class="form-group"
+                  ng-class="{'has-success': !newRecordForm.city.$error.required}">
+              <input type="text"
+                      class="form-control"
+                      name="city"
+                      ng-model="newRecord.address.city"
+                      placeholder=" City"
+                      required />
+            </div>
+          </div>
+
+          <div class="col-xs-3">
+            <div class="form-group"
+                  ng-class="{'has-success': !newRecordForm.state.$error.required}">
+              <select class="form-control"
+                        ng-model="newRecord.address.state">
+              	<option value="AK">AK</option>
+                <option value="AL">AL</option>
+              	<option value="AR">AR</option>
+              	<option value="AZ">AZ</option>
+              	<option value="CA">CA</option>
+              	<option value="CO">CO</option>
+              	<option value="CT">CT</option>
+                <option value="DC">DC</option>
+                <option value="DE">DE</option>
+              	<option value="FL">FL</option>
+              	<option value="GA">GA</option>
+              	<option value="HI">HI</option>
+              	<option value="IA">IA</option>
+                <option value="ID">ID</option>
+              	<option value="IL">IL</option>
+              	<option value="IN">IN</option>
+              	<option value="KS">KS</option>
+              	<option value="KY">KY</option>
+              	<option value="LA">LA</option>
+              	<option value="MA">MA</option>
+                <option value="MD">MD</option>
+                <option value="ME">ME</option>
+              	<option value="MI">MI</option>
+              	<option value="MN">MN</option>
+                <option value="MO">MO</option>
+                <option value="MS">MS</option>
+              	<option value="MT">MT</option>
+                <option value="NC">NC</option>
+              	<option value="ND">ND</option>
+                <option value="NE">NE</option>
+                <option value="NH">NH</option>
+              	<option value="NJ">NJ</option>
+              	<option value="NM">NM</option>
+                <option value="NV">NV</option>
+              	<option value="NY">NY</option>
+              	<option value="OH">OH</option>
+              	<option value="OK">OK</option>
+              	<option value="OR">OR</option>
+              	<option value="PA">PA</option>
+              	<option value="RI">RI</option>
+              	<option value="SC">SC</option>
+              	<option value="SD">SD</option>
+              	<option value="TN">TN</option>
+              	<option value="TX">TX</option>
+              	<option value="UT">UT</option>
+              	<option value="VA">VA</option>
+                <option value="VT">VT</option>
+              	<option value="WA">WA</option>
+              	<option value="WI">WI</option>
+              	<option value="WV">WV</option>
+              	<option value="WY">WY</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-xs-4">
+            <div class="form-group"
+                  ng-class="{'has-success': !newRecordForm.zip.$invalid,
+                  'has-error': !newRecordForm.zip.$pristine
+                    && newRecordForm.zip.$invalid}">
+              <input type="text"
+                      class="form-control"
+                      name="zip"
+                      ng-model="newRecord.address.zip"
+                      placeholder=" Zip"
+                      ng-pattern="zipregex"
+                      required />
+            </div>
+          </div>
+        </div>
+
+<!-- End City/State/Zip row --------------------------------------------->
+
+<!-- Start Submit and Message rows --------------------------------------------->
+        <div class="row">
+          <input type="submit"
+                  class="btn orange-button"
+                  value="Submit"
+                  ng-disabled="newRecordForm.$invalid">
+
+          <input type="button"
+                  class="btn brown-button"
+                  value="Cancel"
+                  ng-click="clearform()"
+                  ng-disabled="newRecordForm.$pristine">
+        </div>
+
+        <div class="row">
+          <span class="message"
+                  ng-class="{'vis-hidden': !successmessage}">Your record has been saved.
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

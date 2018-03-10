@@ -1,0 +1,42 @@
+<div ng-controller="MemberRecordController as individual">
+  <div class="row">
+
+    <div class="col-xs-12 col-md-8">
+      <img class="img-responsive detail-page-image" height="413" width="550"
+        ng-src={{individual.member.data.image.full}}
+        alt={{individual.member.data.firstName}} />
+    </div>
+
+    <div class="col-xs-12 col-md-4 second-column">
+      <div class="row">
+        <h3>{{individual.member.data.firstName}}</h3>
+        <h1 class="last-name">{{individual.member.data.lastName}}</h1>
+        <p>{{individual.member.data.address.streetOne}}<br />
+           <span ng-show="individual.member.data.address.streetTwo">
+             {{individual.member.data.address.streetTwo}}<br /></span>
+           {{individual.member.data.address.city}}, {{individual.member.data.address.state}}  {{individual.member.data.address.zip}}
+        </p>
+        <p>Birthday: {{individual.member.data.dateOfBirth | date : "MMMM d"}}</p>
+        <p><a href="mailto:{{individual.member.data.email}}">{{individual.member.data.email}}</a></p>
+        <p><a href="tel:+1-{{individual.member.data.phone.phoneNumber}}" id="phone"></a></p>
+      </div>
+
+      <div class="row">
+        <a href="tel:+1-{{individual.member.data.phone.phoneNumber}}">
+          <button class="btn orange-button">Call</button>
+        </a>
+        <a href="sms:+1-{{individual.member.data.phone.phoneNumber}}">
+          <button class="btn orange-button"
+            ng-show="individual.member.data.phone.textCapable">Text</button>
+        </a>
+      </div>
+
+      <div class="row">
+          <a href ui-sref="main">
+            <button class="btn brown-button" id="listbutton">Back to list</button>
+          </a>
+      </div>
+
+    </div>
+  </div>
+</div>
